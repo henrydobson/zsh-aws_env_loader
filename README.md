@@ -3,7 +3,7 @@
 
 ```bash
 mkdir -p ~/.zfunc
-git clone ... ~/.zfunc/aws
+git clone git@github.com:henrydobson/zsh-aws_env_loader.git ~/.zfunc/aws
 cat << EOF >> ~/.zpreztorc
 # Custom scripts 
 
@@ -18,4 +18,24 @@ if [ -d $HOME/.zfunc ]; then
         fi
 fi
 EOF
+```
+
+## Configuration and usage
+
+```bash
+mkdir -p ~/.aws
+touch ~/.aws/{config,credentials}
+
+# ~/.aws/config
+[profile example]
+region = eu-west-1
+
+# ~/.aws/credentials
+[example]
+aws_access_key_id = <redacted>
+aws_secret_access_key = <redacted>
+
+# Usage
+aws_set_env # tab to complete
+Loading profile: example - |DONE|
 ```
