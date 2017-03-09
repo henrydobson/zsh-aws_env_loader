@@ -1,0 +1,6 @@
+#compdef aws_set_env
+
+local -a profiles
+profiles=("${(@f)$(grep -E '\[(.*)\]' ~/.aws/credentials | tr -d '[]')}")
+compadd -a profiles
+
