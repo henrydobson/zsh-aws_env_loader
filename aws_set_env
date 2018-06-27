@@ -13,13 +13,13 @@ function prred {
 
 if ! [[ -z "$1" ]]
 then
-	profile=$(grep -Ex "\[$1\]" <(gpg -dq ~/.aws/ecredentials) | sed -e 's/[^-_A-Za-z0-9]//g')
+	profile=$(grep -Ex "\[$1\]" ~/.aws/credentials | sed -e 's/[^-_A-Za-z0-9]//g')
 	echo -n "Loading profile: $profile - "
 	if ! [[ "$profile" =~ '^\s*$' ]]
 	then
 		export AWS_DEFAULT_PROFILE="$1"
 		export AWS_EB_PROFILE="$1"
-		$(sed -e "0,/$1/d" -ne '1,+1 P' <(gpg -dq ~/.aws/ecredentials) | awk -F ' ' '{ printf "export %s=%s\n", toupper($1), $3 }')
+		$(sed -e "0,/$1/d" -ne '1,+1 P' ~/.aws/credentials | awk -F ' ' '{ printf "export %s=%s\n", toupper($1), $3 }')
 		prgreen "DONE"
 		return 0
 	fi
